@@ -11,9 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $user = loginUser($email);
 
+    // ตรวจสอบรหัสผ่าน
     if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['user_id'] = $user['uid'];
+        // เปลี่ยนตรงนี้เป็น UID (ตัวพิมพ์ใหญ่) ให้ตรงกับฐานข้อมูลใหม่
+        $_SESSION['user_id'] = $user['UID']; 
         $_SESSION['name'] = $user['name'];
+        
         echo "<script>alert('เข้าสู่ระบบสำเร็จ'); window.location.href='dashboard';</script>";
         exit;
     } else {
@@ -22,5 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// ถ้าเป็นการเข้าเว็บปกติ ให้แสดงหน้าฟอร์ม
 renderView('login');
 ?>
