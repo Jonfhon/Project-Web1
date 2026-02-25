@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user_id'] = $user['UID']; 
         $_SESSION['name'] = $user['name'];
         
-        echo "<script>alert('เข้าสู่ระบบสำเร็จ'); window.location.href='dashboard';</script>";
+        echo "<script> window.location.href='dashboard';</script>";
         exit;
     } else {
         echo "<script>alert('อีเมลหรือรหัสผ่านไม่ถูกต้อง'); window.history.back();</script>";
