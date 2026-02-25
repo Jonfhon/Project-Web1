@@ -40,7 +40,7 @@
 
             <div class="form-group full">
                 <label>รหัสผ่าน</label>
-                <input type="password" name="password" placeholder="password    ..." required>
+                <input type="password" name="password" placeholder="password..." required>
             </div>
 
             <div class="form-row">
