@@ -13,6 +13,7 @@ const DATABASES_DIR = __DIR__ . '/../databases';
 require_once INCLUDES_DIR . '/router.php';
 require_once INCLUDES_DIR . '/view.php';
 require_once INCLUDES_DIR . '/database.php';
+require_once DATABASES_DIR . '/user_db.php';
 
 // เรียก database ฟังก์ชันเพื่อเชื่อมต่อฐานข้อมูล (ถ้าจำเป็น)
 
@@ -37,3 +38,4 @@ dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
 //     header('Location: /');
 //     exit;
 // }
+
