@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 const ALLOW_METHODS = ['GET', 'POST'];
 const INDEX_URI = '';
-const INDEX_ROUTE = 'login'; 
+const INDEX_ROUTE = 'dashboard'; 
 
 function normalizeUri(string $uri): string
 {

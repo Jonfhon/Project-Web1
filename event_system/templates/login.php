@@ -3,28 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>เข้าสู่ระบบ - Event Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
-        body { background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background-color: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-        h2 { text-align: center; color: #1c1e21; margin-top: 0; margin-bottom: 25px; }
-        .form-group { margin-bottom: 20px; }
-        label { font-weight: 600; color: #606770; display: block; margin-bottom: 8px; font-size: 14px; }
-        input[type="email"], input[type="password"] { width: 100%; padding: 12px; border: 1px solid #dddfe2; border-radius: 6px; font-size: 16px; }
-        .btn-primary { width: 100%; background-color: #1877f2; color: white; padding: 14px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; }
-        .text-center { text-align: center; margin-top: 25px; font-size: 14px; }
-        .text-center a { color: #1877f2; text-decoration: none; font-weight: 600; }
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap');
+        body { font-family: 'Sarabun', sans-serif; }
     </style>
 </head>
-<body>
-    <div class="card">
-        <h2>เข้าสู่ระบบกิจกรรม</h2>
+<body class="bg-slate-100 flex justify-center items-center h-screen m-0 antialiased">
+    <div class="bg-white p-10 rounded-2xl shadow-lg w-full max-w-[400px]">
+        <h2 class="text-center text-slate-800 text-2xl font-bold mt-0 mb-6">เข้าสู่ระบบกิจกรรม</h2>
         <form action="login" method="POST">
-            <div class="form-group"><label>อีเมล</label><input type="email" name="email" required></div>
-            <div class="form-group"><label>รหัสผ่าน</label><input type="password" name="password" required></div>
-            <button type="submit" class="btn-primary">เข้าสู่ระบบ</button>
+            <div class="mb-5">
+                <label class="font-semibold text-slate-500 block mb-2 text-sm">อีเมล</label>
+                <input type="email" name="email" required class="w-full p-3 border border-slate-300 rounded-lg text-base outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
+            </div>
+            <div class="mb-5">
+                <label class="font-semibold text-slate-500 block mb-2 text-sm">รหัสผ่าน</label>
+                <input type="password" name="password" required class="w-full p-3 border border-slate-300 rounded-lg text-base outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
+            </div>
+            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white p-3.5 rounded-lg cursor-pointer text-base font-bold shadow-md transition-colors">เข้าสู่ระบบ</button>
         </form>
-        <div class="text-center">ยังไม่มีบัญชีผู้ใช้? <a href="register">สมัครสมาชิกใหม่</a></div>
+        <div class="text-center mt-6 text-sm text-slate-500">
+            ยังไม่มีบัญชีผู้ใช้? <a href="register" class="text-indigo-600 font-bold no-underline hover:underline">สมัครสมาชิกใหม่</a>
+        </div>
     </div>
 </body>
 </html>

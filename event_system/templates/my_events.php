@@ -12,16 +12,21 @@
 <body class="antialiased text-slate-800">
 
     <nav class="bg-indigo-600 shadow-md">
-        <div class="max-w-6xl mx-auto px-4 h-16 flex justify-between items-center text-white">
+        <div class="max-w-5xl mx-auto px-4 h-16 flex justify-between items-center text-white">
             <div class="flex items-center gap-8">
-                <div class="text-xl font-bold tracking-wide">จัดการกิจกรรม</div>
+                <div class="text-xl font-bold">จัดการกิจกรรม</div>
                 <div class="hidden sm:flex items-center space-x-2">
-                    <a href="dashboard" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md">หน้าหลัก</a>
-                    <a href="my_events" class="bg-indigo-700 text-white px-3 py-2 rounded-md text-sm font-medium">กิจกรรมของฉัน</a>
-                    <a href="add_event" class="text-white hover:bg-indigo-700 px-3 py-2 rounded-md">สร้างกิจกรรม</a>
+                    <a href="dashboard" class="text-indigo-100 hover:text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition">หน้าหลัก</a>
+                    <a href="my_events"
+                        class="bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium">กิจกรรมของฉัน</a>
+                    <a href="add_event"
+                        class="text-indigo-100 hover:text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition">สร้างกิจกรรม</a>
+                    <a href="joined_events"
+                        class="text-indigo-100 hover:text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition">กิจกรรมที่ลงทะเบียน</a>
                 </div>
             </div>
-            <a href="logout" class="bg-indigo-700 hover:bg-indigo-800 px-4 py-2 rounded-lg text-xs font-semibold transition">ออกจากระบบ</a>
+            <a href="logout"
+                class="bg-indigo-700 hover:bg-indigo-800 px-4 py-2 rounded-lg text-sm font-semibold transition">ออกจากระบบ</a>
         </div>
     </nav>
 
