@@ -17,3 +17,4 @@ function getConnection(): mysqli
 }
 
 require_once DATABASES_DIR . '/user_db.php';
+require_once DATABASES_DIR . '/event_db.php';
