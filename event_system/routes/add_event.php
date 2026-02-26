@@ -21,12 +21,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $eventId = $conn->insert_id;
 
         // วนลูปบันทึกหลายรูปภาพ
+// วนลูปบันทึกหลายรูปภาพ
         if (!empty($_FILES['images']['name'][0])) {
             foreach ($_FILES['images']['tmp_name'] as $key => $tmpName) {
                 if ($_FILES['images']['error'][$key] === 0) {
                     $newName = uniqid() . "_" . time() . "_" . $key . ".jpg";
                     if (move_uploaded_file($tmpName, "assets/uploads/" . $newName)) {
-                        $imgSql = "INSERT INTO events (event_id, image_path) VALUES (?, ?)";
+                        $imgSql = "INSERT INTO event_images (event_id, image_path) VALUES (?, ?)";
+                        
                         $imgStmt = $conn->prepare($imgSql);
                         $imgStmt->bind_param("is", $eventId, $newName);
                         $imgStmt->execute();
