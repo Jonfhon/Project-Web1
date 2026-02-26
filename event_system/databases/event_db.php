@@ -11,7 +11,6 @@ function getEventDetails(int $event_id) {
     return $stmt->get_result()->fetch_assoc();
 }
 
-// ดึงรายชื่อคนสมัครกิจกรรมนี้ โดย JOIN ตาราง users กับ registrations
 function getEventParticipants(int $event_id) {
     $conn = getConnection();
     $sql = "SELECT r.ID as reg_id, r.status, r.registered_at, 
