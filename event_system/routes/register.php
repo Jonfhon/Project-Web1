@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = registerUser($name, $email, $password, $gender, $dob, $province);
     
     if ($result === true) {
-        echo "<script>alert('สมัครสมาชิกสำเร็จ!'); window.location.href='login';</script>";
+        echo "<script> window.location.href='login';</script>";
         exit;
     } else {
         echo "<script>alert('$result'); window.history.back();</script>";
