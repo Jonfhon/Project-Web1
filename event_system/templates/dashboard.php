@@ -38,8 +38,56 @@
 
     <main class="max-w-5xl mx-auto px-4 py-8">
         <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl shadow-lg p-8 text-white mb-8">
-            <h2 class="text-3xl font-bold mb-3">ยินดีต้อนรับ!</h2>
-            <p class="text-indigo-100 text-lg">ค้นหากิจกรรมที่น่าสนใจ หรือสร้างกิจกรรมของคุณเองได้เลย</p>
+            
+           <form method="GET" action="dashboard" class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <!-- ค้นหาชื่อ -->
+    <div class="flex flex-col">
+        <label class="text-sm text-white font-semibold mb-1">
+            ชื่อกิจกรรม
+        </label>
+        <input type="text"
+            name="keyword"
+            value="<?= htmlspecialchars($_GET['keyword'] ?? '') ?>"
+            placeholder="ค้นหาชื่อกิจกรรม..."
+            class="px-4 py-3 rounded-xl text-gray-800 focus:outline-none">
+    </div>
+
+    <!-- วันที่เริ่ม -->
+    <div class="flex flex-col">
+        <label class="text-sm text-white font-semibold mb-1">
+            วันที่เริ่ม
+        </label>
+        <input type="date"
+            name="start_date"
+            value="<?= htmlspecialchars($_GET['start_date'] ?? '') ?>"
+            class="px-4 py-3 rounded-xl text-gray-800 focus:outline-none">
+    </div>
+
+    <!-- วันที่สิ้นสุด -->
+    <div class="flex flex-col">
+        <label class="text-sm text-white font-semibold mb-1">
+            วันที่สิ้นสุด
+        </label>
+        <input type="date"
+            name="end_date"
+            value="<?= htmlspecialchars($_GET['end_date'] ?? '') ?>"
+            class="px-4 py-3 rounded-xl text-gray-800 focus:outline-none">
+    </div>
+
+    <div class="md:col-span-3 flex gap-3 mt-2">
+        <button type="submit"
+            class="bg-white text-indigo-600 px-6 py-3 rounded-xl font-bold hover:bg-indigo-100 transition">
+            ค้นหา
+        </button>
+
+        <a href="dashboard"
+            class="bg-indigo-700 px-6 py-3 rounded-xl font-bold hover:bg-indigo-800 transition">
+            ลบ
+        </a>
+    </div>
+
+</form>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
