@@ -64,12 +64,13 @@
                     <input type="number" name="max_participants" required min="1" class="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all">
                 </div>
 
-                <div class="space-y-1">
-                    <label class="block text-sm font-bold text-indigo-900 ml-1">รูปภาพประกอบ</label>
-                    <div class="relative group">
-                        <input type="file" name="images[]" multiple accept="image/*" required class="w-full text-sm text-slate-500 file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer border-2 border-dashed border-slate-200 rounded-2xl p-4 transition-all group-hover:border-indigo-300">
-                    </div>
-                </div>
+               <div class="space-y-1">
+    <label class="block text-sm font-bold text-indigo-900 ml-1">รูปภาพประกอบ (เลือกได้หลายรูป)</label>
+    <div class="relative group">
+        <input type="file" name="images[]" multiple accept="image/*" required 
+               class="w-full text-sm text-slate-500 file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer border-2 border-dashed border-slate-200 rounded-2xl p-4 transition-all group-hover:border-indigo-300">
+    </div>
+</div>
 
                 <button type="submit" class="w-full py-5 bg-gradient-to-br from-indigo-600 to-purple-700 text-white font-bold rounded-2xl shadow-xl shadow-indigo-200 hover:shadow-indigo-300 hover:-translate-y-1 active:scale-[0.98] transition-all duration-200">
                     สร้างกิจกรรม

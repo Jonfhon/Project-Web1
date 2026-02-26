@@ -1,5 +1,5 @@
 <?php
-// ไฟล์: routes/edit_profile.php
+
 
 $conn = getConnection();
 // ดึง ID ผู้ใช้ (ถ้ายังไม่มีระบบล็อกอิน ใช้ ID 1 ทดสอบไปก่อน)

@@ -1,13 +1,14 @@
 <?php
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login");
-    exit;
-}
+if (!isset($_SESSION['user_id'])) { header("Location: login"); exit; }
 
 $conn = getConnection();
 
-// ดึงกิจกรรมทั้งหมด (ยกเว้นกิจกรรมที่หมดเวลาแล้ว หรือ กิจกรรมของเราเองตามแต่จะเลือก)
-$sql = "SELECT * FROM events ORDER BY created_at DESC";
+// ดึงกิจกรรม + รูปภาพแรกมา
+$sql = "SELECT e.*, 
+        (SELECT image_path FROM event_images WHERE event_id = e.event_id LIMIT 1) as image_path 
+        FROM events e 
+        ORDER BY e.created_at DESC";
+
 $result = $conn->query($sql);
 $events = $result->fetch_all(MYSQLI_ASSOC);
 
