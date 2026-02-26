@@ -92,11 +92,18 @@
                             <span class="text-rose-500 font-semibold">สิ้นสุด: <?= date('d M Y H:i', strtotime($event['end_event'])) ?></span>
                         </div>
 
-                        <?php if (!empty($event['is_registered']) && $event['is_registered'] > 0): ?>
+                        <?php if (isset($_SESSION['user_id']) && $event['organizer_id'] == $_SESSION['user_id']): ?>
+                            <button disabled
+                                class="w-full bg-indigo-50 text-indigo-400 py-3 rounded-xl font-bold cursor-not-allowed border border-indigo-100">
+                                กิจกรรมของคุณ
+                            </button>
+                            
+                        <?php elseif (!empty($event['is_registered']) && $event['is_registered'] > 0): ?>
                             <button disabled
                                 class="w-full bg-slate-200 text-slate-500 py-3 rounded-xl font-bold cursor-not-allowed border border-slate-300">
                                 ลงทะเบียนแล้ว
                             </button>
+                            
                         <?php else: ?>
                             <form action="join_event" method="POST">
                                 <input type="hidden" name="event_id" value="<?= $event['event_id'] ?>">
@@ -106,7 +113,7 @@
                                 </button>
                             </form>
                         <?php endif; ?>
-                    </div>
+                        </div>
                 </div>
             <?php endforeach; ?>
         </div>
