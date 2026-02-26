@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($_FILES['images']['error'][$key] === 0) {
                     $newName = uniqid() . "_" . time() . "_" . $key . ".jpg";
                     if (move_uploaded_file($tmpName, "assets/uploads/" . $newName)) {
-                        $imgSql = "INSERT INTO event_images (event_id, image_path) VALUES (?, ?)";
+                        $imgSql = "INSERT INTO events (event_id, image_path) VALUES (?, ?)";
                         $imgStmt = $conn->prepare($imgSql);
                         $imgStmt->bind_param("is", $eventId, $newName);
                         $imgStmt->execute();

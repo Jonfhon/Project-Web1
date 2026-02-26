@@ -7,7 +7,7 @@
     <style>@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap'); body { font-family: 'Sarabun', sans-serif; }</style>
 </head>
 <body class="bg-slate-100 antialiased">
-    <nav class="bg-indigo-600 shadow-md">
+<nav class="bg-indigo-600 shadow-md">
         <div class="max-w-5xl mx-auto px-4 h-16 flex justify-between items-center text-white">
             <div class="flex items-center gap-8">
                 <div class="text-xl font-bold">จัดการกิจกรรม</div>
@@ -15,6 +15,7 @@
                     <a href="dashboard" class="bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium">หน้าหลัก</a>
                     <a href="my_events" class="text-indigo-100 hover:text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition">กิจกรรมของฉัน</a>
                     <a href="add_event" class="text-indigo-100 hover:text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition">สร้างกิจกรรม</a>
+                    <a href="joined_events" class="text-indigo-100 hover:text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition">กิจกรรมที่ลงทะเบียน</a>
                 </div>
             </div>
             <a href="logout" class="bg-indigo-700 hover:bg-indigo-800 px-4 py-2 rounded-lg text-sm font-semibold transition">ออกจากระบบ</a>

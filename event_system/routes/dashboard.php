@@ -5,7 +5,7 @@ $conn = getConnection();
 
 // ดึงกิจกรรม + รูปภาพแรกมา
 $sql = "SELECT e.*, 
-        (SELECT image_path FROM event_images WHERE event_id = e.event_id LIMIT 1) as image_path 
+        (SELECT image_path FROM events WHERE event_id = e.event_id LIMIT 1) as image_path 
         FROM events e 
         ORDER BY e.created_at DESC";
 
