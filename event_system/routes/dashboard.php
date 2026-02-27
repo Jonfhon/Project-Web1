@@ -1,5 +1,8 @@
 <?php
-if (!isset($_SESSION['user_id'])) { header("Location: login"); exit; }
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login");
+    exit;
+}
 
 $conn = getConnection();
 $userId = $_SESSION['user_id'];
@@ -17,7 +20,7 @@ $sql = "SELECT e.*,
 
 // ตัวแปรสำหรับผูกค่า (bind_param)
 $params = [$userId];
-$types  = "i";
+$types = "i";
 
 // 3. เงื่อนไข: ค้นหาจาก "ชื่อกิจกรรม"
 if (!empty($keyword)) {
@@ -61,7 +64,7 @@ foreach ($events as $key => $event) {
     $imgStmt = $conn->prepare($imgSql);
     $imgStmt->bind_param("i", $eventId);
     $imgStmt->execute();
-    
+
     $images = $imgStmt->get_result()->fetch_all(MYSQLI_ASSOC);
     $events[$key]['images'] = array_column($images, 'image_path');
 }
