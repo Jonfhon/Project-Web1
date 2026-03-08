@@ -8,14 +8,19 @@ if (!isset($_SESSION['user_id'])) {
 $conn = getConnection();
 $userId = (int)$_SESSION['user_id'];
 
-// 2. ดึงข้อมูลกิจกรรมที่ user คนนี้ลงทะเบียนไว้
-// ไฮไลท์: ต้องดึง r.ID as registration_id มาด้วย เพื่อเอาไปใช้หา OTP
+// ========================================================
+// 2. ดึงข้อมูลกิจกรรมที่ user คนนี้ลงทะเบียนไว้ 
+// 🌟 แก้ไข: เพิ่มการดึง is_checked_in และ checkin_time มาด้วย
+// ========================================================
 $sql = "SELECT e.*, 
                r.ID as registration_id, 
                r.status, 
-               r.registered_at 
+               r.registered_at,
+               c.is_checked_in, 
+               c.checkin_time 
         FROM events e
         JOIN registrations r ON e.event_id = r.event_id
+        LEFT JOIN checkins c ON r.ID = c.registration_id 
         WHERE r.user_id = ?
         ORDER BY r.registered_at DESC";
 
