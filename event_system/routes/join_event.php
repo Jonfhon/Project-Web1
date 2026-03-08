@@ -5,57 +5,61 @@ if (!isset($_SESSION['user_id'])) {
     exit; 
 }
 
+// 2. เช็คว่าส่งข้อมูลมาแบบ POST หรือไม่
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn = getConnection();
     
-    // 2. รับค่ามาแปลงเป็นตัวเลข (int) ป้องกันช่องโหว่ (SQL Injection) ได้ดียิ่งขึ้น
     $userId = (int)$_SESSION['user_id'];
     $eventId = (int)$_POST['event_id'];
 
-    // ========================================================
-    // 2.5 เพิ่มการเช็คว่าเป็นกิจกรรมของตัวเองหรือไม่ (กันคนแอบยิงข้อมูล)
-    // ========================================================
+    // 3. เช็คว่าเป็นเจ้าของกิจกรรมหรือไม่ (ห้ามเข้าร่วมงานตัวเอง)
     $checkOwnerSql = "SELECT organizer_id FROM events WHERE event_id = ?";
     $checkOwnerStmt = $conn->prepare($checkOwnerSql);
     $checkOwnerStmt->bind_param("i", $eventId);
     $checkOwnerStmt->execute();
     $eventData = $checkOwnerStmt->get_result()->fetch_assoc();
 
-    // ถ้าพบว่า organizer_id ตรงกับคนที่ล็อกอินอยู่ แปลว่าเป็นคนสร้างเอง!
     if ($eventData && $eventData['organizer_id'] === $userId) {
-        // ให้เด้งกลับไปหน้า dashboard เลย
         header("Location: dashboard"); 
         exit;
     }
-    // ========================================================
 
-    // 3. เช็คว่าเคยสมัครกิจกรรมนี้ไปแล้วหรือยัง
+    // 4. เช็คว่าเคยลงทะเบียนไปหรือยัง (กันกดซ้ำ)
     $checkSql = "SELECT ID FROM registrations WHERE event_id = ? AND user_id = ?";
     $checkStmt = $conn->prepare($checkSql);
     $checkStmt->bind_param("ii", $eventId, $userId);
     $checkStmt->execute();
-    
-    // ดึงผลลัพธ์ออกมาเก็บในตัวแปรเพื่อเช็คจำนวนแถว
     $result = $checkStmt->get_result();
     
+    // 5. ถ้ายังไม่เคยลงทะเบียน ให้บันทึกข้อมูล
     if ($result->num_rows === 0) {
-        // 4. ยังไม่เคยสมัคร -> ทำการบันทึกข้อมูล
         $insertSql = "INSERT INTO registrations (event_id, user_id, status) VALUES (?, ?, 'pending')";
         $insertStmt = $conn->prepare($insertSql);
         $insertStmt->bind_param("ii", $eventId, $userId);
         
+        // ถ้าบันทึกลงตาราง registrations สำเร็จ!
         if ($insertStmt->execute()) {
-            // สมัครสำเร็จ
-            header("Location: dashboard?msg=success");
+            
+            // ==========================================
+            // 🌟 พระเอกของเรา: สร้าง OTP ทันทีที่ลงทะเบียนเสร็จ
+            // ==========================================
+            $registrationId = $conn->insert_id; // ดึง ID ที่เพิ่งบันทึกเมื่อกี้
+            
+            require_once 'create_otp.php'; // นำเข้าโรงงานผลิต OTP
+            generateEventOTP($conn, $registrationId); // สั่งสุ่มและบันทึก OTP ลงตาราง checkins
+            // ==========================================
+
+            header("Location: dashboard?msg=success"); // เด้งกลับหน้าหลัก
             exit;
         } else {
-            // เผื่อมี Error ตอนบันทึก จะได้แสดงออกมาให้เราเห็น
             die("เกิดข้อผิดพลาดในการลงทะเบียน: " . $conn->error);
         }
     } else {
-        // 5. เคยสมัครไปแล้ว -> เด้งกลับไปหน้าเดิมพร้อมส่งข้อความแจ้งเตือน
-        header("Location: dashboard?msg=already_registered");
+        header("Location: dashboard?msg=already_registered"); // ถ้าเคยลงแล้ว
         exit;
     }
+} else {
+    header("Location: dashboard");
+    exit;
 }
 ?>

@@ -96,11 +96,21 @@
                             </div>
 
                             <?php if ($event['status'] === 'pending'): ?>
-                                <div class="bg-amber-50 border border-amber-200 text-amber-700 p-3 rounded-xl flex items-center justify-center gap-2">
+                                <div class="bg-amber-50 border border-amber-200 text-amber-700 p-4 rounded-xl flex flex-col items-center justify-center gap-3">
+                                    
                                     <div class="flex flex-col text-center">
                                         <span class="font-bold text-sm">รอผู้จัดงานอนุมัติ</span>
                                         <span class="text-[10px] text-amber-600 opacity-80">เมื่อ <?= date('d M Y', strtotime($event['registered_at'])) ?></span>
                                     </div>
+                                    
+                                    <div class="bg-white border-2 border-dashed border-amber-300 rounded-lg px-4 py-3 text-center w-full shadow-sm">
+                                        <span class="block text-[10px] font-semibold text-amber-500 mb-1 uppercase tracking-wider">รหัสเข้างาน (OTP)</span>
+                                        <span class="text-2xl font-mono font-bold tracking-[0.2em] text-amber-600">
+                                            <?= htmlspecialchars($event['otp_code'] ?? '------') ?>
+                                        </span>
+                                        <span class="block text-[10px] text-amber-400 mt-1">*รหัสจะสุ่มใหม่ทุก 30 นาที</span>
+                                    </div>
+
                                 </div>
                             <?php elseif ($event['status'] === 'approved'): ?>
                                 <div class="bg-emerald-50 border border-emerald-200 text-emerald-700 p-3 rounded-xl flex items-center justify-center gap-2">
