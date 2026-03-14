@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>รายชื่อผู้สมัคร - Event Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>รายชื่อผู้สมัคร - Event Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap');
         body { font-family: 'Sarabun', sans-serif; }
         
-        /* ตกแต่ง Scrollbar สำหรับตารางบนมือถือ */
         .custom-scrollbar::-webkit-scrollbar { height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f8fafc; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
@@ -34,18 +34,125 @@
                 &larr; กลับไปกิจกรรมของฉัน
             </a>
             <h2 class="text-xl sm:text-2xl font-bold text-slate-800">รายชื่อผู้ขอเข้าร่วม</h2>
-            <p class="text-sm sm:text-base text-slate-500 mt-1">กิจกรรม: <span class="font-semibold text-indigo-600"><?php echo htmlspecialchars($data['event']['title']); ?></span></p>
+            <p class="text-sm sm:text-base text-slate-500 mt-1">กิจกรรม: <span class="font-semibold text-indigo-600"><?php echo htmlspecialchars($data['event']['title'] ?? ''); ?></span></p>
         </div>
 
-        <div class="bg-white rounded-xl sm:rounded-[2rem] shadow-sm border border-indigo-100 p-5 sm:p-8 mb-8 flex flex-col md:flex-row items-center justify-between gap-5">
-            <div class="w-full md:w-auto text-center md:text-left">
+        <?php 
+            // 🚨 แก้ไขตรงนี้! แกะค่าจากกล่อง $data ออกมาเป็นตัวแปรธรรมดา เพื่อให้กราฟทำงานได้
+            $stat_total   = $data['stat_total'] ?? 0;
+            $gender_male  = $data['gender_male'] ?? 0;
+            $gender_female= $data['gender_female'] ?? 0;
+            $gender_other = $data['gender_other'] ?? 0;
+            
+            $age_under_18 = $data['age_under_18'] ?? 0;
+            $age_18_25    = $data['age_18_25'] ?? 0;
+            $age_26_35    = $data['age_26_35'] ?? 0;
+            $age_36_45    = $data['age_36_45'] ?? 0;
+            $age_over_45  = $data['age_over_45'] ?? 0;
+        ?>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 mb-8">
+            
+            <div class="bg-white p-6 sm:p-8 rounded-2xl sm:rounded-[2rem] shadow-sm border border-slate-100">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg sm:text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <span>🚻</span> สัดส่วนเพศ
+                    </h3>
+                    <span class="text-sm font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">รวม <?= $stat_total ?> คน</span>
+                </div>
+
+                <div class="space-y-5">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="font-bold text-blue-600 flex items-center gap-1">👨 ชาย</span>
+                            <span class="font-bold text-slate-600"><?= $gender_male ?> คน</span>
+                        </div>
+                        <div class="w-full bg-slate-100 rounded-full h-3 sm:h-4 overflow-hidden">
+                            <div class="bg-blue-500 h-3 sm:h-4 rounded-full transition-all duration-500" style="width: <?= ($stat_total > 0) ? round(($gender_male / $stat_total) * 100) : 0 ?>%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="font-bold text-pink-600 flex items-center gap-1">👩 หญิง</span>
+                            <span class="font-bold text-slate-600"><?= $gender_female ?> คน</span>
+                        </div>
+                        <div class="w-full bg-slate-100 rounded-full h-3 sm:h-4 overflow-hidden">
+                            <div class="bg-pink-500 h-3 sm:h-4 rounded-full transition-all duration-500" style="width: <?= ($stat_total > 0) ? round(($gender_female / $stat_total) * 100) : 0 ?>%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="font-bold text-purple-600 flex items-center gap-1">🌈 อื่นๆ</span>
+                            <span class="font-bold text-slate-600"><?= $gender_other ?> คน</span>
+                        </div>
+                        <div class="w-full bg-slate-100 rounded-full h-3 sm:h-4 overflow-hidden">
+                            <div class="bg-purple-500 h-3 sm:h-4 rounded-full transition-all duration-500" style="width: <?= ($stat_total > 0) ? round(($gender_other / $stat_total) * 100) : 0 ?>%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 sm:p-8 rounded-2xl sm:rounded-[2rem] shadow-sm border border-slate-100">
+                <h3 class="text-lg sm:text-xl font-bold text-slate-800 flex items-center gap-2 mb-6">
+                    <span>🎂</span> ช่วงอายุผู้เข้าร่วม
+                </h3>
+
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-20 text-xs sm:text-sm font-bold text-slate-500 text-right">ต่ำกว่า 18 ปี</div>
+                        <div class="flex-1 bg-slate-100 rounded-full h-3 sm:h-4 overflow-hidden flex">
+                            <div class="bg-emerald-400 h-full rounded-full transition-all duration-500" style="width: <?= ($stat_total > 0) ? round(($age_under_18 / $stat_total) * 100) : 0 ?>%"></div>
+                        </div>
+                        <div class="w-12 text-xs sm:text-sm font-bold text-slate-700"><?= $age_under_18 ?> <span class="text-slate-400 font-normal text-[10px]">คน</span></div>
+                    </div>
+                    
+                    <div class="flex items-center gap-3">
+                        <div class="w-20 text-xs sm:text-sm font-bold text-slate-500 text-right">18 - 25 ปี</div>
+                        <div class="flex-1 bg-slate-100 rounded-full h-3 sm:h-4 overflow-hidden flex">
+                            <div class="bg-teal-500 h-full rounded-full transition-all duration-500" style="width: <?= ($stat_total > 0) ? round(($age_18_25 / $stat_total) * 100) : 0 ?>%"></div>
+                        </div>
+                        <div class="w-12 text-xs sm:text-sm font-bold text-slate-700"><?= $age_18_25 ?> <span class="text-slate-400 font-normal text-[10px]">คน</span></div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <div class="w-20 text-xs sm:text-sm font-bold text-slate-500 text-right">26 - 35 ปี</div>
+                        <div class="flex-1 bg-slate-100 rounded-full h-3 sm:h-4 overflow-hidden flex">
+                            <div class="bg-cyan-500 h-full rounded-full transition-all duration-500" style="width: <?= ($stat_total > 0) ? round(($age_26_35 / $stat_total) * 100) : 0 ?>%"></div>
+                        </div>
+                        <div class="w-12 text-xs sm:text-sm font-bold text-slate-700"><?= $age_26_35 ?> <span class="text-slate-400 font-normal text-[10px]">คน</span></div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <div class="w-20 text-xs sm:text-sm font-bold text-slate-500 text-right">36 - 45 ปี</div>
+                        <div class="flex-1 bg-slate-100 rounded-full h-3 sm:h-4 overflow-hidden flex">
+                            <div class="bg-sky-500 h-full rounded-full transition-all duration-500" style="width: <?= ($stat_total > 0) ? round(($age_36_45 / $stat_total) * 100) : 0 ?>%"></div>
+                        </div>
+                        <div class="w-12 text-xs sm:text-sm font-bold text-slate-700"><?= $age_36_45 ?> <span class="text-slate-400 font-normal text-[10px]">คน</span></div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <div class="w-20 text-xs sm:text-sm font-bold text-slate-500 text-right">45 ปีขึ้นไป</div>
+                        <div class="flex-1 bg-slate-100 rounded-full h-3 sm:h-4 overflow-hidden flex">
+                            <div class="bg-indigo-400 h-full rounded-full transition-all duration-500" style="width: <?= ($stat_total > 0) ? round(($age_over_45 / $stat_total) * 100) : 0 ?>%"></div>
+                        </div>
+                        <div class="w-12 text-xs sm:text-sm font-bold text-slate-700"><?= $age_over_45 ?> <span class="text-slate-400 font-normal text-[10px]">คน</span></div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="bg-white rounded-xl sm:rounded-[2rem] shadow-sm border border-indigo-100 p-5 sm:p-8 mb-8 flex flex-col md:flex-row items-center justify-between gap-5 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-bl-[100px] -z-10 opacity-50"></div>
+            
+            <div class="w-full md:w-auto text-center md:text-left z-10">
                 <h3 class="text-lg font-bold text-indigo-700 flex items-center justify-center md:justify-start gap-2">
                     <span class="text-2xl">📱</span> ระบบสแกนเข้างาน (Check-in)
                 </h3>
                 <p class="text-xs sm:text-sm text-gray-500 mt-1">กรอกรหัส OTP 6 หลักที่ผู้เข้าร่วมนำมาแสดงเพื่อบันทึกเวลาเข้างาน</p>
             </div>
 
-            <form action="process_checkin" method="POST" class="flex flex-col sm:flex-row w-full md:w-auto gap-3">
+            <form action="process_checkin" method="POST" class="flex flex-col sm:flex-row w-full md:w-auto gap-3 z-10">
                 <input type="hidden" name="event_id" value="<?= htmlspecialchars($data['event']['event_id'] ?? '') ?>">
                 
                 <input type="text" name="otp_code" maxlength="6" pattern="\d{6}" placeholder="------" required autofocus

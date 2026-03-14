@@ -1,12 +1,11 @@
 <?php
-// 🌟 บังคับให้ระบบใช้เวลาประเทศไทย (แก้ปัญหาเวลาเพี้ยน)
 date_default_timezone_set('Asia/Bangkok');
 
 function generateEventOTP($conn, $registrationId) {
     $otpCode = rand(100000, 999999);
     
-    // ตั้งให้หมดอายุใน 1 นาที (ไว้ทดสอบ ถ้าเทสผ่านค่อยแก้เป็น 30 minutes)
-    $expireAt = date('Y-m-d H:i:s', strtotime('+1 minute'));
+    // ตั้งให้เวลา
+    $expireAt = date('Y-m-d H:i:s', strtotime('+30 minute'));
     
     $otpSql = "INSERT INTO checkins (registration_id, otp_code, otp_expire_at, is_checked_in) 
                VALUES (?, ?, ?, 0)";

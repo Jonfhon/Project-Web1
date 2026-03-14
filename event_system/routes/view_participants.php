@@ -21,11 +21,11 @@ if (!$event || $event['organizer_id'] !== $_SESSION['user_id']) {
 }
 
 // =========================================================================
-// 🌟 ส่วนที่แก้ไข: เขียนคำสั่ง SQL ดึงข้อมูลใหม่ตรงนี้เลย (ดึงข้อมูล checkin มาด้วย)
+// 🌟 ดึงข้อมูลผู้สมัคร (เพิ่ม u.date_of_birth เพื่อเอามาคำนวณอายุ)
 // =========================================================================
 $conn = getConnection();
 $sql = "SELECT r.ID as reg_id, r.status, r.registered_at, 
-               u.UID, u.name, u.email, u.gender, u.province,
+               u.UID, u.name, u.email, u.gender, u.province, u.date_of_birth, 
                c.is_checked_in, c.checkin_time 
         FROM registrations r
         JOIN users u ON r.user_id = u.UID
@@ -37,11 +37,73 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $event_id);
 $stmt->execute();
 $participants = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+
+// =========================================================================
+// 🧮 ส่วนคำนวณสถิติประชากรศาสตร์ (Demographics)
+// =========================================================================
+$stat_total = count($participants);
+
+// เตรียมตัวแปรสถิติเพศ
+$gender_male = 0;
+$gender_female = 0;
+$gender_other = 0;
+
+// เตรียมตัวแปรสถิติช่วงอายุ
+$age_under_18 = 0;
+$age_18_25 = 0;
+$age_26_35 = 0;
+$age_36_45 = 0;
+$age_over_45 = 0;
+
+$today = new DateTime(); // ดึงวันที่ปัจจุบันมาเป็นฐานในการลบกับวันเกิด
+
+// วนลูปเช็คผู้สมัครทีละคน เพื่อหยอดเหรียญลงตะกร้าสถิติ
+foreach ($participants as $p) {
+    
+    // 1️⃣ นับเพศ
+    if ($p['gender'] === 'Male') {
+        $gender_male++;
+    } elseif ($p['gender'] === 'Female') {
+        $gender_female++;
+    } else {
+        $gender_other++;
+    }
+
+    // 2️⃣ คำนวณอายุจากวันเกิด แล้วแยกช่วงอายุ
+    if (!empty($p['date_of_birth'])) {
+        $dob = new DateTime($p['date_of_birth']);
+        $age = $today->diff($dob)->y; // หาความต่างของเวลาและดึงมาแค่จำนวน "ปี" (y)
+
+        if ($age < 18) {
+            $age_under_18++;
+        } elseif ($age >= 18 && $age <= 25) {
+            $age_18_25++;
+        } elseif ($age >= 26 && $age <= 35) {
+            $age_26_35++;
+        } elseif ($age >= 36 && $age <= 45) {
+            $age_36_45++;
+        } else {
+            $age_over_45++;
+        }
+    }
+}
 // =========================================================================
 
-// ส่งข้อมูลไปให้หน้า Template
+// ส่งข้อมูลทั้งหมด รวมถึงสถิติที่คำนวณเสร็จแล้ว ไปให้หน้า Template
 renderView('view_participants', [
     'event' => $event,
-    'participants' => $participants
+    'participants' => $participants,
+    
+    // ส่งตัวแปรสถิติไปให้ HTML ใช้แสดงผลกราฟ
+    'stat_total' => $stat_total,
+    'gender_male' => $gender_male,
+    'gender_female' => $gender_female,
+    'gender_other' => $gender_other,
+    'age_under_18' => $age_under_18,
+    'age_18_25' => $age_18_25,
+    'age_26_35' => $age_26_35,
+    'age_36_45' => $age_36_45,
+    'age_over_45' => $age_over_45
 ]);
 ?>
