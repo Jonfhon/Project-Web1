@@ -2,24 +2,74 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <title>ข้อมูลผู้สมัคร</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>ข้อมูลผู้สมัคร - Event Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap');
+        body { font-family: 'Sarabun', sans-serif; }
+    </style>
 </head>
-<body class="bg-slate-100 py-10">
-    <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
-        <div class="bg-indigo-600 px-6 py-4 text-white">
-            <h2 class="text-xl font-bold">ประวัติผู้สมัคร</h2>
+<body class="bg-slate-100 min-h-screen flex justify-center items-center py-10 px-4 antialiased">
+    
+    <div class="w-full max-w-2xl bg-white rounded-3xl sm:rounded-[2rem] shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-50">
+        
+        <div class="bg-gradient-to-r from-indigo-600 to-indigo-800 px-6 sm:px-10 py-8 sm:py-10 text-white relative overflow-hidden flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-center sm:text-left">
+            <div class="w-20 h-20 sm:w-24 sm:h-24 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-4xl sm:text-5xl border-4 border-white/30 shadow-inner shrink-0">
+                👤
+            </div>
+            <div>
+                <h2 class="text-xs sm:text-sm font-bold tracking-widest text-indigo-200 uppercase mb-1">ประวัติผู้สมัคร</h2>
+                <h3 class="text-2xl sm:text-3xl font-bold"><?= htmlspecialchars($data['user']['name']) ?></h3>
+            </div>
         </div>
-        <div class="p-6 grid grid-cols-2 gap-4 text-lg">
-            <div><span class="text-gray-500 text-sm block">ชื่อ-นามสกุล</span><span class="font-bold"><?= htmlspecialchars($data['user']['name']) ?></span></div>
-            <div><span class="text-gray-500 text-sm block">อีเมล</span><span><?= htmlspecialchars($data['user']['email']) ?></span></div>
-            <div><span class="text-gray-500 text-sm block">เพศ</span><span><?= htmlspecialchars($data['user']['gender']) ?></span></div>
-            <div><span class="text-gray-500 text-sm block">วันเกิด</span><span><?= htmlspecialchars($data['user']['date_of_birth']) ?></span></div>
-            <div class="col-span-2"><span class="text-gray-500 text-sm block">จังหวัด</span><span><?= htmlspecialchars($data['user']['province']) ?></span></div>
+
+        <div class="p-6 sm:p-10 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+            
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <span class="text-indigo-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider block mb-1">ชื่อ-นามสกุล</span>
+                <span class="font-bold text-slate-800 text-base sm:text-lg"><?= htmlspecialchars($data['user']['name']) ?></span>
+            </div>
+            
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <span class="text-indigo-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider block mb-1">อีเมล</span>
+                <span class="font-semibold text-slate-700 text-base sm:text-lg break-all"><?= htmlspecialchars($data['user']['email']) ?></span>
+            </div>
+            
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <span class="text-indigo-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider block mb-1">เพศ</span>
+                <span class="font-semibold text-slate-700 text-base sm:text-lg">
+                    <?php 
+                        $gender = htmlspecialchars($data['user']['gender']);
+                        if ($gender === 'Male') echo 'ชาย 👨';
+                        elseif ($gender === 'Female') echo 'หญิง 👩';
+                        else echo $gender; 
+                    ?>
+                </span>
+            </div>
+            
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <span class="text-indigo-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider block mb-1">วันเกิด</span>
+                <span class="font-semibold text-slate-700 text-base sm:text-lg">
+                    <?= date('d M Y', strtotime($data['user']['date_of_birth'])) ?>
+                </span>
+            </div>
+            
+            <div class="sm:col-span-2 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <span class="text-indigo-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider block mb-1">จังหวัดที่พักอาศัย</span>
+                <span class="font-semibold text-slate-700 text-base sm:text-lg flex items-center gap-2">
+                    📍 <?= htmlspecialchars($data['user']['province']) ?>
+                </span>
+            </div>
+            
         </div>
-        <div class="px-6 py-4 bg-gray-50 text-right border-t">
-            <button onclick="window.history.back()" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">ย้อนกลับ</button>
+
+        <div class="px-6 sm:px-10 py-5 sm:py-6 bg-white border-t border-slate-100 flex justify-center sm:justify-end">
+            <button onclick="window.history.back()" 
+                class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold px-8 py-3.5 sm:py-3 rounded-xl transition active:scale-95 text-sm sm:text-base">
+                &larr; ย้อนกลับ
+            </button>
         </div>
+        
     </div>
 </body>
 </html>

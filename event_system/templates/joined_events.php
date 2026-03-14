@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>กิจกรรมที่ลงทะเบียน - Event Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>กิจกรรมที่ลงทะเบียน - Event Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap');
@@ -21,40 +21,47 @@
 <body class="bg-slate-100 antialiased">
     <nav class="bg-indigo-600 shadow-md">
         <div class="max-w-5xl mx-auto px-4 h-16 flex justify-between items-center text-white">
-            <div class="flex items-center gap-8">
-                <div class="text-xl font-bold">จัดการกิจกรรม</div>
-                <div class="hidden sm:flex items-center space-x-2">
+            <div class="flex items-center gap-4 md:gap-8">
+                <div class="text-lg sm:text-xl font-bold whitespace-nowrap">จัดการกิจกรรม</div>
+                <div class="hidden md:flex items-center space-x-2">
                     <a href="dashboard" class="text-indigo-100 hover:text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition">หน้าหลัก</a>
                     <a href="my_events" class="text-indigo-100 hover:text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition">กิจกรรมของฉัน</a>
                     <a href="add_event" class="text-indigo-100 hover:text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition">สร้างกิจกรรม</a>
-                    <a href="joined_events" class="bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium">กิจกรรมที่ลงทะเบียน</a>
+                    <a href="joined_events" class="bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium shadow-inner">กิจกรรมที่ลงทะเบียน</a>
                 </div>
             </div>
-            <a href="logout" class="bg-indigo-700 hover:bg-indigo-800 px-4 py-2 rounded-lg text-sm font-semibold transition">ออกจากระบบ</a>
+            <a href="logout" class="bg-indigo-700 hover:bg-indigo-800 px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap">ออกจากระบบ</a>
+        </div>
+
+        <div class="md:hidden bg-indigo-700 px-4 py-2 flex overflow-x-auto space-x-2 hide-scrollbar">
+            <a href="dashboard" class="text-indigo-100 hover:text-white whitespace-nowrap px-3 py-1.5 rounded-md text-sm">หน้าหลัก</a>
+            <a href="my_events" class="text-indigo-100 hover:text-white whitespace-nowrap px-3 py-1.5 rounded-md text-sm">กิจกรรมของฉัน</a>
+            <a href="add_event" class="text-indigo-100 hover:text-white whitespace-nowrap px-3 py-1.5 rounded-md text-sm">สร้างกิจกรรม</a>
+            <a href="joined_events" class="bg-indigo-800 text-white whitespace-nowrap px-3 py-1.5 rounded-md text-sm font-medium">ลงทะเบียนแล้ว</a>
         </div>
     </nav>
 
-    <main class="max-w-5xl mx-auto px-4 py-8">
-        <div class="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl shadow-lg p-8 text-white mb-8">
-            <h2 class="text-3xl font-bold mb-3">กิจกรรมที่คุณลงทะเบียนไว้</h2>
-            <p class="text-emerald-100 text-lg">เตรียมตัวให้พร้อมสำหรับกิจกรรมที่คุณกำลังจะเข้าร่วม!</p>
+    <main class="max-w-5xl mx-auto px-4 py-6 sm:py-8 pb-20">
+        <div class="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl shadow-lg p-6 sm:p-8 text-white mb-6 sm:mb-8">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3">กิจกรรมที่คุณลงทะเบียนไว้</h2>
+            <p class="text-emerald-100 text-sm sm:text-lg">เตรียมตัวให้พร้อมสำหรับกิจกรรมที่คุณกำลังจะเข้าร่วม!</p>
         </div>
 
         <?php if (empty($data['events'])): ?>
-            <div class="bg-white rounded-2xl shadow-sm p-12 text-center border border-slate-200">
-                <div class="text-6xl mb-4">📭</div>
-                <h3 class="text-xl font-bold text-slate-700 mb-2">คุณยังไม่ได้ลงทะเบียนกิจกรรมใดๆ</h3>
-                <p class="text-slate-500 mb-6">ลองไปค้นหากิจกรรมที่น่าสนใจที่หน้าหลักดูสิครับ</p>
-                <a href="dashboard" class="inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-indigo-700 transition">
+            <div class="bg-white rounded-2xl shadow-sm p-8 sm:p-12 text-center border border-slate-200">
+                <div class="text-5xl sm:text-6xl mb-4">📭</div>
+                <h3 class="text-lg sm:text-xl font-bold text-slate-700 mb-2">คุณยังไม่ได้ลงทะเบียนกิจกรรมใดๆ</h3>
+                <p class="text-sm sm:text-base text-slate-500 mb-6">ลองไปค้นหากิจกรรมที่น่าสนใจที่หน้าหลักดูสิครับ</p>
+                <a href="dashboard" class="inline-block bg-indigo-600 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold hover:bg-indigo-700 transition text-sm sm:text-base">
                     ไปดูหน้ากิจกรรม
                 </a>
             </div>
         <?php else: ?>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                 <?php foreach ($data['events'] as $event): ?>
-                    <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 group">
+                    <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 group flex flex-col h-full">
 
-                        <div class="h-48 bg-slate-200 relative group/slider">
+                        <div class="h-44 sm:h-48 bg-slate-200 relative group/slider shrink-0">
                             <?php if (!empty($event['images'])): ?>
                                 <div id="slider-join-<?= $event['event_id'] ?>" class="flex overflow-x-auto snap-x snap-mandatory h-full hide-scrollbar scroll-smooth">
                                     <?php foreach ($event['images'] as $img): ?>
@@ -84,71 +91,73 @@
                             <?php endif; ?>
                         </div>
 
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold text-gray-900 mb-2 truncate"><?= htmlspecialchars($event['title']) ?></h3>
-                            <p class="text-sm text-gray-500 mb-2 flex items-center gap-1">
-                                📍 <?= htmlspecialchars($event['location']) ?>
+                        <div class="p-5 sm:p-6 flex-1 flex flex-col">
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 truncate"><?= htmlspecialchars($event['title']) ?></h3>
+                            <p class="text-xs sm:text-sm text-gray-500 mb-3 flex items-start gap-1">
+                                <span>📍</span> <span class="line-clamp-2"><?= htmlspecialchars($event['location']) ?></span>
                             </p>
 
-                            <div class="text-xs text-slate-500 mb-4 flex flex-col gap-1 bg-slate-50 p-2 rounded-lg">
+                            <div class="text-[11px] sm:text-xs text-slate-500 mb-4 flex flex-col gap-1 bg-slate-50 p-2.5 sm:p-3 rounded-lg border border-slate-100">
                                 <span class="text-indigo-600 font-semibold">เริ่ม: <?= date('d M Y H:i', strtotime($event['start_event'])) ?></span>
                                 <span class="text-rose-500 font-semibold">สิ้นสุด: <?= date('d M Y H:i', strtotime($event['end_event'])) ?></span>
                             </div>
 
-                            <?php if (isset($event['is_checked_in']) && $event['is_checked_in'] == 1): ?>
-                                <div class="bg-emerald-100 border border-emerald-300 text-emerald-800 p-4 rounded-xl flex items-center justify-center gap-3 shadow-sm">
-                                    <span class="text-3xl">🎉</span>
-                                    <div class="flex flex-col">
-                                        <span class="font-bold text-md">เข้าร่วมงานแล้ว</span>
-                                        <?php if (!empty($event['checkin_time'])): ?>
-                                            <span class="text-xs text-emerald-600 font-semibold">
-                                                เวลา: <?= date('H:i น.', strtotime($event['checkin_time'])) ?>
-                                            </span>
-                                        <?php endif; ?>
+                            <div class="mt-auto">
+                                <?php if (isset($event['is_checked_in']) && $event['is_checked_in'] == 1): ?>
+                                    <div class="bg-emerald-100 border border-emerald-300 text-emerald-800 p-3 sm:p-4 rounded-xl flex items-center justify-center gap-3 shadow-sm">
+                                        <span class="text-2xl sm:text-3xl">🎉</span>
+                                        <div class="flex flex-col">
+                                            <span class="font-bold text-sm sm:text-md">เข้าร่วมงานแล้ว</span>
+                                            <?php if (!empty($event['checkin_time'])): ?>
+                                                <span class="text-[10px] sm:text-xs text-emerald-600 font-semibold">
+                                                    เวลา: <?= date('H:i น.', strtotime($event['checkin_time'])) ?>
+                                                </span>
+                                            <?php endif; ?>
+                                        </div>
                                     </div>
-                                </div>
 
-                            <?php elseif ($event['status'] === 'pending'): ?>
-                                <div class="bg-amber-50 border border-amber-200 text-amber-700 p-4 rounded-xl flex flex-col items-center justify-center gap-3">
-                                    <div class="flex flex-col text-center">
-                                        <span class="font-bold text-sm">รอผู้จัดงานอนุมัติ</span>
-                                        <span class="text-[10px] text-amber-600 opacity-80">เมื่อ <?= date('d M Y', strtotime($event['registered_at'])) ?></span>
+                                <?php elseif ($event['status'] === 'pending'): ?>
+                                    <div class="bg-amber-50 border border-amber-200 text-amber-700 p-3 sm:p-4 rounded-xl flex flex-col items-center justify-center gap-2 sm:gap-3">
+                                        <div class="flex flex-col text-center">
+                                            <span class="font-bold text-xs sm:text-sm">รอผู้จัดงานอนุมัติ</span>
+                                            <span class="text-[9px] sm:text-[10px] text-amber-600 opacity-80">เมื่อ <?= date('d M Y', strtotime($event['registered_at'])) ?></span>
+                                        </div>
                                     </div>
-                                </div>
-                                
-                            <?php elseif ($event['status'] === 'approved'): ?>
-                                <div class="bg-emerald-50 border border-emerald-200 text-emerald-700 p-4 rounded-xl flex flex-col items-center justify-center gap-3">
-                                    <div class="flex flex-col text-center">
-                                        <span class="font-bold text-sm">อนุมัติการเข้าร่วมแล้ว!</span>
-                                        <span class="text-[10px] text-emerald-600 opacity-80">พร้อมสแกนเข้างานด้วยรหัสนี้ 👇</span>
+                                    
+                                <?php elseif ($event['status'] === 'approved'): ?>
+                                    <div class="bg-emerald-50 border border-emerald-200 text-emerald-700 p-3 sm:p-4 rounded-xl flex flex-col items-center justify-center gap-2 sm:gap-3">
+                                        <div class="flex flex-col text-center">
+                                            <span class="font-bold text-xs sm:text-sm">อนุมัติการเข้าร่วมแล้ว!</span>
+                                            <span class="text-[9px] sm:text-[10px] text-emerald-600 opacity-80">พร้อมสแกนเข้างานด้วยรหัสนี้ 👇</span>
+                                        </div>
+                                        <div class="bg-white border-2 border-dashed border-emerald-300 rounded-lg px-3 py-2 sm:px-4 sm:py-3 text-center w-full shadow-sm">
+                                            <span class="block text-[9px] sm:text-[10px] font-semibold text-emerald-600 mb-1 uppercase tracking-wider">รหัสเข้างาน (OTP)</span>
+                                            <span class="text-xl sm:text-2xl font-mono font-bold tracking-[0.2em] text-emerald-700">
+                                                <?= htmlspecialchars($event['otp_code'] ?? '------') ?>
+                                            </span>
+                                            <span class="block text-[9px] sm:text-[10px] text-emerald-500 mt-1">*รหัสจะสุ่มใหม่ทุก 30 นาที</span>
+                                        </div>
                                     </div>
-                                    <div class="bg-white border-2 border-dashed border-emerald-300 rounded-lg px-4 py-3 text-center w-full shadow-sm">
-                                        <span class="block text-[10px] font-semibold text-emerald-600 mb-1 uppercase tracking-wider">รหัสเข้างาน (OTP)</span>
-                                        <span class="text-2xl font-mono font-bold tracking-[0.2em] text-emerald-700">
-                                            <?= htmlspecialchars($event['otp_code'] ?? '------') ?>
-                                        </span>
-                                        <span class="block text-[10px] text-emerald-500 mt-1">*รหัสจะสุ่มใหม่ทุก 30 นาที</span>
+                                    
+                                <?php elseif ($event['status'] === 'rejected'): ?>
+                                    <div class="bg-rose-50 border border-rose-200 text-rose-700 p-3 rounded-xl flex items-center justify-center gap-2">
+                                        <div class="flex flex-col text-center">
+                                            <span class="font-bold text-xs sm:text-sm">ไม่ได้รับสิทธิ์เข้าร่วม</span>
+                                            <span class="text-[9px] sm:text-[10px] text-rose-600 opacity-80">เมื่อ <?= date('d M Y', strtotime($event['registered_at'])) ?></span>
+                                        </div>
                                     </div>
-                                </div>
-                                
-                            <?php elseif ($event['status'] === 'rejected'): ?>
-                                <div class="bg-rose-50 border border-rose-200 text-rose-700 p-3 rounded-xl flex items-center justify-center gap-2">
-                                    <div class="flex flex-col text-center">
-                                        <span class="font-bold text-sm">ไม่ได้รับสิทธิ์เข้าร่วม</span>
-                                        <span class="text-[10px] text-rose-600 opacity-80">เมื่อ <?= date('d M Y', strtotime($event['registered_at'])) ?></span>
+                                    
+                                <?php else: ?>
+                                    <div class="bg-gray-50 border border-gray-200 text-gray-700 p-3 rounded-xl flex items-center justify-center gap-2">
+                                        <span class="text-base sm:text-lg">❓</span>
+                                        <div class="flex flex-col text-center">
+                                            <span class="font-bold text-xs sm:text-sm">สถานะไม่ทราบแน่ชัด</span>
+                                        </div>
                                     </div>
-                                </div>
-                                
-                            <?php else: ?>
-                                <div class="bg-gray-50 border border-gray-200 text-gray-700 p-3 rounded-xl flex items-center justify-center gap-2">
-                                    <span class="text-lg">❓</span>
-                                    <div class="flex flex-col text-center">
-                                        <span class="font-bold text-sm">สถานะไม่ทราบแน่ชัด</span>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                            
+                                <?php endif; ?>
                             </div>
+                            
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>
