@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>หน้าหลัก - Event Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>หน้าหลัก - Event Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap');
@@ -76,14 +77,14 @@
             </form>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 align-top items-start">
             <?php if(empty($data['events'])): ?>
                 <div class="col-span-full py-20 bg-white rounded-2xl text-center shadow-sm">
                     <p class="text-slate-500 font-medium text-lg">ไม่พบกิจกรรมที่คุณค้นหา</p>
                 </div>
             <?php else: ?>
                 <?php foreach ($data['events'] as $event): ?>
-                    <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 group flex flex-col h-full">
+                    <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 group flex flex-col relative h-max">
 
                         <div class="h-48 sm:h-52 bg-slate-200 relative group/slider shrink-0">
                             <?php if (!empty($event['images'])): ?>
@@ -120,12 +121,35 @@
                         <div class="p-5 sm:p-6 flex-1 flex flex-col">
                             <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 line-clamp-2"><?= htmlspecialchars($event['title']) ?></h3>
                             <p class="text-xs sm:text-sm text-gray-500 mb-3 flex items-start gap-1">
-                                <span>📍</span> <span class="line-clamp-2"><?= htmlspecialchars($event['location']) ?></span>
+                                <span class="font-semibold text-slate-400">สถานที่:</span> <span class="line-clamp-2"><?= htmlspecialchars($event['location']) ?></span>
                             </p>
 
-                            <div class="text-[11px] sm:text-xs text-slate-500 mb-4 flex flex-col gap-1 bg-slate-50 p-2.5 sm:p-3 rounded-lg border border-slate-100">
-                                <span class="text-indigo-600 font-semibold">เริ่ม: <?= date('d M Y H:i', strtotime($event['start_event'])) ?></span>
-                                <span class="text-rose-500 font-semibold">สิ้นสุด: <?= date('d M Y H:i', strtotime($event['end_event'])) ?></span>
+                            <div class="mb-4">
+                                <span class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-600 px-2.5 py-1 rounded-md text-[11px] sm:text-xs font-bold border border-emerald-100">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                    สมัครแล้ว: <?= htmlspecialchars($event['registered_count'] ?? 0) ?> / <?= htmlspecialchars($event['max_participants'] ?? '-') ?> ท่าน
+                                </span>
+                            </div>
+
+                            <div class="mb-4 bg-slate-50 rounded-xl border border-slate-100 overflow-hidden shadow-sm">
+                                <button type="button" onclick="toggleDetails('desc-<?= $event['event_id'] ?>', 'icon-<?= $event['event_id'] ?>')" 
+                                        class="w-full text-left p-3 sm:p-4 flex justify-between items-center hover:bg-indigo-50/50 transition-colors">
+                                    <div class="text-[11px] sm:text-xs flex flex-col gap-1">
+                                        <span class="text-indigo-600 font-semibold flex items-center gap-1">เริ่ม: <?= date('d M Y H:i', strtotime($event['start_event'])) ?></span>
+                                        <span class="text-rose-500 font-semibold flex items-center gap-1">สิ้นสุด: <?= date('d M Y H:i', strtotime($event['end_event'])) ?></span>
+                                    </div>
+                                    <div class="text-indigo-400 bg-white rounded-full p-1.5 shadow-sm">
+                                        <svg id="icon-<?= $event['event_id'] ?>" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </div>
+                                </button>
+                                
+                                <div id="desc-<?= $event['event_id'] ?>" class="hidden px-4 pb-4 border-t border-slate-100">
+                                    <div class="mt-3 text-[12px] sm:text-[13px] text-slate-600 leading-relaxed whitespace-pre-line">
+                                        <?= htmlspecialchars($event['description']) ?>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="mt-auto pt-2">
@@ -154,6 +178,20 @@
             <?php endif; ?>
         </div>
     </main>
-</body>
 
+    <script>
+        function toggleDetails(descId, iconId) {
+            const desc = document.getElementById(descId);
+            const icon = document.getElementById(iconId);
+            
+            if (desc.classList.contains('hidden')) {
+                desc.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                desc.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+    </script>
+</body>
 </html>

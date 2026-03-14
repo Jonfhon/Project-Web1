@@ -4,7 +4,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// รับค่า id กิจกรรมจาก URL
+
 $event_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 if ($event_id === 0) {
@@ -14,15 +14,13 @@ if ($event_id === 0) {
 
 $event = getEventDetails($event_id);
 
-// ตรวจสอบว่าเป็นเจ้าของกิจกรรมหรือไม่ (ป้องกันคนอื่นแอบดู)
+
 if (!$event || $event['organizer_id'] !== $_SESSION['user_id']) {
     echo "<script>alert('คุณไม่มีสิทธิ์ดูข้อมูลกิจกรรมนี้'); window.location.href='my_events';</script>";
     exit;
 }
 
-// =========================================================================
-// 🌟 ดึงข้อมูลผู้สมัคร (เพิ่ม u.date_of_birth เพื่อเอามาคำนวณอายุ)
-// =========================================================================
+
 $conn = getConnection();
 $sql = "SELECT r.ID as reg_id, r.status, r.registered_at, 
                u.UID, u.name, u.email, u.gender, u.province, u.date_of_birth, 
@@ -39,9 +37,7 @@ $stmt->execute();
 $participants = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 
-// =========================================================================
-// 🧮 ส่วนคำนวณสถิติประชากรศาสตร์ (Demographics)
-// =========================================================================
+
 $stat_total = count($participants);
 
 // เตรียมตัวแปรสถิติเพศ
@@ -73,7 +69,7 @@ foreach ($participants as $p) {
     // 2️⃣ คำนวณอายุจากวันเกิด แล้วแยกช่วงอายุ
     if (!empty($p['date_of_birth'])) {
         $dob = new DateTime($p['date_of_birth']);
-        $age = $today->diff($dob)->y; // หาความต่างของเวลาและดึงมาแค่จำนวน "ปี" (y)
+        $age = $today->diff($dob)->y;
 
         if ($age < 18) {
             $age_under_18++;
@@ -88,14 +84,11 @@ foreach ($participants as $p) {
         }
     }
 }
-// =========================================================================
 
-// ส่งข้อมูลทั้งหมด รวมถึงสถิติที่คำนวณเสร็จแล้ว ไปให้หน้า Template
 renderView('view_participants', [
     'event' => $event,
     'participants' => $participants,
     
-    // ส่งตัวแปรสถิติไปให้ HTML ใช้แสดงผลกราฟ
     'stat_total' => $stat_total,
     'gender_male' => $gender_male,
     'gender_female' => $gender_female,

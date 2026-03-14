@@ -38,7 +38,6 @@
         </div>
 
         <?php 
-            // 🚨 แก้ไขตรงนี้! แกะค่าจากกล่อง $data ออกมาเป็นตัวแปรธรรมดา เพื่อให้กราฟทำงานได้
             $stat_total   = $data['stat_total'] ?? 0;
             $gender_male  = $data['gender_male'] ?? 0;
             $gender_female= $data['gender_female'] ?? 0;
@@ -56,7 +55,8 @@
             <div class="bg-white p-6 sm:p-8 rounded-2xl sm:rounded-[2rem] shadow-sm border border-slate-100">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="text-lg sm:text-xl font-bold text-slate-800 flex items-center gap-2">
-                        <span>🚻</span> สัดส่วนเพศ
+                        <svg class="w-6 h-6 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        สัดส่วนเพศ
                     </h3>
                     <span class="text-sm font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">รวม <?= $stat_total ?> คน</span>
                 </div>
@@ -64,7 +64,10 @@
                 <div class="space-y-5">
                     <div>
                         <div class="flex justify-between text-sm mb-1">
-                            <span class="font-bold text-blue-600 flex items-center gap-1">👨 ชาย</span>
+                            <span class="font-bold text-blue-600 flex items-center gap-1.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                ชาย
+                            </span>
                             <span class="font-bold text-slate-600"><?= $gender_male ?> คน</span>
                         </div>
                         <div class="w-full bg-slate-100 rounded-full h-3 sm:h-4 overflow-hidden">
@@ -73,7 +76,10 @@
                     </div>
                     <div>
                         <div class="flex justify-between text-sm mb-1">
-                            <span class="font-bold text-pink-600 flex items-center gap-1">👩 หญิง</span>
+                            <span class="font-bold text-pink-600 flex items-center gap-1.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                หญิง
+                            </span>
                             <span class="font-bold text-slate-600"><?= $gender_female ?> คน</span>
                         </div>
                         <div class="w-full bg-slate-100 rounded-full h-3 sm:h-4 overflow-hidden">
@@ -82,7 +88,10 @@
                     </div>
                     <div>
                         <div class="flex justify-between text-sm mb-1">
-                            <span class="font-bold text-purple-600 flex items-center gap-1">🌈 อื่นๆ</span>
+                            <span class="font-bold text-purple-600 flex items-center gap-1.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                อื่นๆ
+                            </span>
                             <span class="font-bold text-slate-600"><?= $gender_other ?> คน</span>
                         </div>
                         <div class="w-full bg-slate-100 rounded-full h-3 sm:h-4 overflow-hidden">
@@ -94,7 +103,8 @@
 
             <div class="bg-white p-6 sm:p-8 rounded-2xl sm:rounded-[2rem] shadow-sm border border-slate-100">
                 <h3 class="text-lg sm:text-xl font-bold text-slate-800 flex items-center gap-2 mb-6">
-                    <span>🎂</span> ช่วงอายุผู้เข้าร่วม
+                    <svg class="w-6 h-6 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    ช่วงอายุผู้เข้าร่วม
                 </h3>
 
                 <div class="space-y-4">
@@ -147,7 +157,8 @@
             
             <div class="w-full md:w-auto text-center md:text-left z-10">
                 <h3 class="text-lg font-bold text-indigo-700 flex items-center justify-center md:justify-start gap-2">
-                    <span class="text-2xl">📱</span> ระบบสแกนเข้างาน (Check-in)
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    ระบบสแกนเข้างาน (Check-in)
                 </h3>
                 <p class="text-xs sm:text-sm text-gray-500 mt-1">กรอกรหัส OTP 6 หลักที่ผู้เข้าร่วมนำมาแสดงเพื่อบันทึกเวลาเข้างาน</p>
             </div>
@@ -204,8 +215,9 @@
                                         <?php elseif ($p['status'] === 'approved'): ?>
                                             <?php if (isset($p['is_checked_in']) && $p['is_checked_in'] == 1): ?>
                                                 <div class="flex flex-col items-center gap-1">
-                                                    <span class="inline-block bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold border border-emerald-200">
-                                                        ✅ เข้าร่วมงาน
+                                                    <span class="inline-flex items-center gap-1 bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold border border-emerald-200">
+                                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                                        เข้าร่วมงาน
                                                     </span>
                                                     <span class="text-[10px] sm:text-xs text-gray-500 font-semibold bg-gray-50 px-2 rounded">
                                                         เวลา: <?= date('H:i:s', strtotime($p['checkin_time'])) ?> น.

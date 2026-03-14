@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>กิจกรรมที่ลงทะเบียน - Event Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>หน้าหลัก - Event Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap');
@@ -11,8 +12,6 @@
         body {
             font-family: 'Sarabun', sans-serif;
         }
-
-        /* ซ่อนแถบเลื่อน (Scrollbar) แต่ยังเลื่อนได้ */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -23,6 +22,7 @@
         <div class="max-w-5xl mx-auto px-4 h-16 flex justify-between items-center text-white">
             <div class="flex items-center gap-4 md:gap-8">
                 <div class="text-lg sm:text-xl font-bold whitespace-nowrap">จัดการกิจกรรม</div>
+                
                 <div class="hidden md:flex items-center space-x-2">
                     <a href="dashboard" class="text-indigo-100 hover:text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition">หน้าหลัก</a>
                     <a href="my_events" class="text-indigo-100 hover:text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition">กิจกรรมของฉัน</a>
@@ -44,12 +44,14 @@
     <main class="max-w-5xl mx-auto px-4 py-6 sm:py-8 pb-20">
         <div class="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl shadow-lg p-6 sm:p-8 text-white mb-6 sm:mb-8">
             <h2 class="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3">กิจกรรมที่คุณลงทะเบียนไว้</h2>
-            <p class="text-emerald-100 text-sm sm:text-lg">เตรียมตัวให้พร้อมสำหรับกิจกรรมที่คุณกำลังจะเข้าร่วม!</p>
+            <p class="text-emerald-100 text-sm sm:text-lg">เตรียมตัวให้พร้อมสำหรับกิจกรรมที่คุณกำลังจะเข้าร่วม</p>
         </div>
 
         <?php if (empty($data['events'])): ?>
-            <div class="bg-white rounded-2xl shadow-sm p-8 sm:p-12 text-center border border-slate-200">
-                <div class="text-5xl sm:text-6xl mb-4">📭</div>
+            <div class="bg-white rounded-2xl shadow-sm p-8 sm:p-12 text-center border border-slate-200 flex flex-col items-center">
+                <div class="text-slate-300 mb-4">
+                    <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+                </div>
                 <h3 class="text-lg sm:text-xl font-bold text-slate-700 mb-2">คุณยังไม่ได้ลงทะเบียนกิจกรรมใดๆ</h3>
                 <p class="text-sm sm:text-base text-slate-500 mb-6">ลองไปค้นหากิจกรรมที่น่าสนใจที่หน้าหลักดูสิครับ</p>
                 <a href="dashboard" class="inline-block bg-indigo-600 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold hover:bg-indigo-700 transition text-sm sm:text-base">
@@ -94,7 +96,8 @@
                         <div class="p-5 sm:p-6 flex-1 flex flex-col">
                             <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 truncate"><?= htmlspecialchars($event['title']) ?></h3>
                             <p class="text-xs sm:text-sm text-gray-500 mb-3 flex items-start gap-1">
-                                <span>📍</span> <span class="line-clamp-2"><?= htmlspecialchars($event['location']) ?></span>
+                                <svg class="w-4 h-4 text-gray-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                <span class="line-clamp-2"><?= htmlspecialchars($event['location']) ?></span>
                             </p>
 
                             <div class="text-[11px] sm:text-xs text-slate-500 mb-4 flex flex-col gap-1 bg-slate-50 p-2.5 sm:p-3 rounded-lg border border-slate-100">
@@ -104,9 +107,9 @@
 
                             <div class="mt-auto">
                                 <?php if (isset($event['is_checked_in']) && $event['is_checked_in'] == 1): ?>
-                                    <div class="bg-emerald-100 border border-emerald-300 text-emerald-800 p-3 sm:p-4 rounded-xl flex items-center justify-center gap-3 shadow-sm">
-                                        <span class="text-2xl sm:text-3xl">🎉</span>
-                                        <div class="flex flex-col">
+                                    <div class="bg-emerald-50 border border-emerald-200 text-emerald-800 p-3 sm:p-4 rounded-xl flex items-center justify-center gap-3 shadow-sm">
+                                        <svg class="w-6 h-6 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        <div class="flex flex-col text-left">
                                             <span class="font-bold text-sm sm:text-md">เข้าร่วมงานแล้ว</span>
                                             <?php if (!empty($event['checkin_time'])): ?>
                                                 <span class="text-[10px] sm:text-xs text-emerald-600 font-semibold">
@@ -127,8 +130,8 @@
                                 <?php elseif ($event['status'] === 'approved'): ?>
                                     <div class="bg-emerald-50 border border-emerald-200 text-emerald-700 p-3 sm:p-4 rounded-xl flex flex-col items-center justify-center gap-2 sm:gap-3">
                                         <div class="flex flex-col text-center">
-                                            <span class="font-bold text-xs sm:text-sm">อนุมัติการเข้าร่วมแล้ว!</span>
-                                            <span class="text-[9px] sm:text-[10px] text-emerald-600 opacity-80">พร้อมสแกนเข้างานด้วยรหัสนี้ 👇</span>
+                                            <span class="font-bold text-xs sm:text-sm">อนุมัติการเข้าร่วมแล้ว</span>
+                                            <span class="text-[9px] sm:text-[10px] text-emerald-600 opacity-80">พร้อมสแกนเข้างานด้วยรหัสนี้</span>
                                         </div>
                                         <div class="bg-white border-2 border-dashed border-emerald-300 rounded-lg px-3 py-2 sm:px-4 sm:py-3 text-center w-full shadow-sm">
                                             <span class="block text-[9px] sm:text-[10px] font-semibold text-emerald-600 mb-1 uppercase tracking-wider">รหัสเข้างาน (OTP)</span>
@@ -149,7 +152,7 @@
                                     
                                 <?php else: ?>
                                     <div class="bg-gray-50 border border-gray-200 text-gray-700 p-3 rounded-xl flex items-center justify-center gap-2">
-                                        <span class="text-base sm:text-lg">❓</span>
+                                        <svg class="w-5 h-5 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                         <div class="flex flex-col text-center">
                                             <span class="font-bold text-xs sm:text-sm">สถานะไม่ทราบแน่ชัด</span>
                                         </div>

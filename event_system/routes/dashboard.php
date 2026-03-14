@@ -12,9 +12,12 @@ $keyword = $_GET['keyword'] ?? null;
 $start_date = $_GET['start_date'] ?? null;
 $end_date = $_GET['end_date'] ?? null;
 
-// 2. ดึงข้อมูลกิจกรรมตั้งต้น (ใช้ WHERE 1=1 เพื่อให้ต่อ AND ได้)
+// =========================================================
+// 🌟 2. ดึงข้อมูลกิจกรรม (เพิ่มตัวนับยอด registered_count เข้ามา)
+// =========================================================
 $sql = "SELECT e.*, 
-        (SELECT COUNT(ID) FROM registrations WHERE event_id = e.event_id AND user_id = ?) as is_registered
+        (SELECT COUNT(ID) FROM registrations WHERE event_id = e.event_id AND user_id = ?) as is_registered,
+        (SELECT COUNT(ID) FROM registrations WHERE event_id = e.event_id AND status != 'rejected') as registered_count
         FROM events e 
         WHERE 1=1";
 
@@ -53,7 +56,9 @@ $sql .= " ORDER BY e.created_at DESC";
 
 // Execute คำสั่ง SQL
 $stmt = $conn->prepare($sql);
-$stmt->bind_param($types, ...$params);
+if (!empty($types)) {
+    $stmt->bind_param($types, ...$params);
+}
 $stmt->execute();
 $events = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
@@ -71,4 +76,4 @@ foreach ($events as $key => $event) {
 
 // ส่งข้อมูลไปที่หน้าจอ
 renderView('dashboard', ['events' => $events]);
-?>
+?>  

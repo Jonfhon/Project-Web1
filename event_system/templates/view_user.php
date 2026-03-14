@@ -2,7 +2,8 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>ข้อมูลผู้สมัคร - Event Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>ข้อมูลผู้สมัคร - Event Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap');
@@ -14,8 +15,8 @@
     <div class="w-full max-w-2xl bg-white rounded-3xl sm:rounded-[2rem] shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-50">
         
         <div class="bg-gradient-to-r from-indigo-600 to-indigo-800 px-6 sm:px-10 py-8 sm:py-10 text-white relative overflow-hidden flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-center sm:text-left">
-            <div class="w-20 h-20 sm:w-24 sm:h-24 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-4xl sm:text-5xl border-4 border-white/30 shadow-inner shrink-0">
-                👤
+            <div class="w-20 h-20 sm:w-24 sm:h-24 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border-4 border-white/30 shadow-inner shrink-0 text-white">
+                <svg class="w-10 h-10 sm:w-12 sm:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
             </div>
             <div>
                 <h2 class="text-xs sm:text-sm font-bold tracking-widest text-indigo-200 uppercase mb-1">ประวัติผู้สมัคร</h2>
@@ -37,12 +38,16 @@
             
             <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
                 <span class="text-indigo-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider block mb-1">เพศ</span>
-                <span class="font-semibold text-slate-700 text-base sm:text-lg">
+                <span class="font-semibold text-slate-700 text-base sm:text-lg flex items-center gap-1.5">
                     <?php 
                         $gender = htmlspecialchars($data['user']['gender']);
-                        if ($gender === 'Male') echo 'ชาย 👨';
-                        elseif ($gender === 'Female') echo 'หญิง 👩';
-                        else echo $gender; 
+                        if ($gender === 'Male') {
+                            echo '<svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg> ชาย';
+                        } elseif ($gender === 'Female') {
+                            echo '<svg class="w-4 h-4 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg> หญิง';
+                        } else {
+                            echo $gender; 
+                        }
                     ?>
                 </span>
             </div>
@@ -56,8 +61,9 @@
             
             <div class="sm:col-span-2 bg-slate-50 p-4 rounded-2xl border border-slate-100">
                 <span class="text-indigo-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider block mb-1">จังหวัดที่พักอาศัย</span>
-                <span class="font-semibold text-slate-700 text-base sm:text-lg flex items-center gap-2">
-                    📍 <?= htmlspecialchars($data['user']['province']) ?>
+                <span class="font-semibold text-slate-700 text-base sm:text-lg flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <?= htmlspecialchars($data['user']['province']) ?>
                 </span>
             </div>
             
