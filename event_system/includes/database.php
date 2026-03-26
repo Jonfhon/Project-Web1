@@ -1,8 +1,8 @@
 <?php
-$hostname = 'localhost';
-$dbName = 'event_db'; 
-$username = 'root';
-$password = '';
+$hostname = 'mooncat.k1god.com';
+$dbName = 'k1god_mooncat'; 
+$username = 'k1god_mooncat';
+$password = 'tuxT2^5yJcScdi9?';
 $conn = new mysqli($hostname, $username, $password, $dbName);
 
 $conn->set_charset("utf8mb4");
